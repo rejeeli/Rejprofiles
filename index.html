@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejeeli | profile</title>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1439972460647813170/1510675047038058516/1780093486257.png?ex=6a1dad46&is=6a1c5bc6&hm=2ae8275c3dadb150588f7972c25ef47967a332a3f498a23773e73bdbada91ab5&" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --accent: #ffffff;
+            --accent-glow: #ffffff;
+            --text: #ffffff;
+            --secondary: #888888;
+            --card-bg: rgba(10, 10, 10, 0.85);
+            --radius: 12px; 
+            --shadow: 0 10px 35px rgba(0, 0, 0, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif, 'Segoe UI';
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 15px;
+            background: #0a0a0a; 
+            position: relative;
+            overflow-x: hidden;
+            perspective: 1000px;
+            cursor: none; 
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3e%3cfilter id="noiseFilter"%3e%3cfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/%3e%3c/filter%3e%3crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3e%3c/filter%3e%3c/svg%3e');
+            z-index: 99999;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(90deg, transparent 45%, rgba(255,255,255,0.01) 48%, rgba(0,0,0,0.05) 50%, transparent 52%);
+            background-size: 400px 100%;
+            opacity: 0.2;
+            z-index: 99998;
+            pointer-events: none;
+            animation: scratch-move 12s linear infinite;
+        }
+
+        @keyframes scratch-move {
+            0% { background-position: 0px 0; }
+            100% { background-position: 1600px 0; }
+        }
+
+        .enter-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: none;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            border: 4px double var(--accent);
+        }
+
+        .enter-text {
+            font-family: 'Georgia', serif;
+            font-size: 1.6rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: pulse 2s infinite ease-in-out;
+            user-select: none;
+            text-transform: uppercase;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); text-shadow: 0 0 20px var(--accent-glow); }
+        }
+
+        .flash-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 99997;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .bg-parallax {
+            position: fixed;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background: url('https://cdn.discordapp.com/attachments/1389332339292639443/1510728904883830814/ce2ecbf581a0037789513e6384a9de9d.jpg?ex=6a1ddf6e&is=6a1c8dee&hm=b3f7d498e14212b9ab952c15a50f3260d826f5a8ffbe20cc31340696ae9a315d&') center 30%/cover no-repeat;
+            opacity: 0.55; 
+            filter: brightness(50%) contrast(105%) grayscale(100%); 
+            z-index: -2;
+            will-change: transform;
+            transition: transform 0.2s ease-out;
+        }
+
+        #snowCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        .custom-cursor {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .custom-cursor-glow {
+            width: 26px;
+            height: 26px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+            transition: width 0.25s, height 0.25s, background-color 0.25s;
+        }
+
+        .custom-cursor-glow.hovered {
+            width: 44px;
+            height: 44px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 680px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .play-prompt {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.95);
+            color: var(--text);
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-family: 'Georgia', serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            z-index: 60;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .show-prompt {
+            animation: fadeOut 3.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 0; transform: translate(-50%, -10px); }
+            15% { opacity: 1; transform: translate(-50%, 0); }
+            85% { opacity: 1; transform: translate(-50%, 0); }
+            100% { opacity: 0; transform: translate(-50%, -10px); }
+        }
+
+        .profile-header {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .top-logo {
+            width: 140px; 
+            height: auto;
+            object-fit: contain;
+            background: transparent;
+            border: none;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) grayscale(100%);
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+            object-fit: cover;
+            background: #101010;
+            filter: grayscale(100%) contrast(125%) brightness(95%);
+        }
+
+        .username {
+            font-family: 'Georgia', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .bio {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: var(--secondary);
+            font-size: 1rem;
+            max-width: 400px;
+            text-align: center;
+            background: rgba(10, 10, 10, 0.85);
+            padding: 6px 22px;
+            border-radius: 4px;
+            border: 1px double var(--accent);
+        }
+
+        .clock {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            background: rgba(0,0,0,0.85);
+            padding: 4px 20px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 16px;
+            width: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 22px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow);
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, transform 0.2s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+            text-align: center;
+            cursor: none;
+        }
+        
+        .card:hover {
+            border-color: var(--accent-glow);
+            background-color: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .card i {
+            font-size: 2rem;
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+        
+        .card .title {
+            font-family: 'Georgia', serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #fff;
+        }
+        
+        .card .detail {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            direction: ltr;
+        }
+
+        .cassette-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #121212 0%, #1c1c1c 100%);
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            box-shadow: var(--shadow), inset 0 0 20px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            cursor: none;
+        }
+
+        .cassette-label {
+            width: 90%;
+            background: #ededed;
+            color: #111;
+            border-radius: 4px;
+            padding: 8px 12px;
+            border: 2px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .cassette-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cassette-window {
+            width: 55%;
+            height: 45px;
+            background: rgba(5, 5, 5, 0.9);
+            border: 3px solid #282828;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: relative;
+            box-shadow: inset 0 0 10px #000;
+            overflow: hidden;
+        }
+
+        .wheel {
+            width: 28px;
+            height: 28px;
+            border: 3px dotted #555;
+            border-radius: 50%;
+            background: #111;
+            position: relative;
+        }
+
+        .wheel::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px; height: 8px;
+            background: #ededed;
+            border-radius: 50%;
+        }
+
+        .cassette-playing .wheel {
+            animation: spinWheel 4s linear infinite;
+        }
+
+        @keyframes spinWheel {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        .cassette-info {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            font-family: 'Georgia', serif;
+        }
+
+        .song-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: right;
+        }
+
+        .song-title-text {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .song-artist-text {
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .cassette-progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cassette-time {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.75rem;
+            color: var(--secondary);
+        }
+
+        .cassette-progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cassette-progress {
+            width: 0%;
+            height: 100%;
+            background: var(--accent);
+            box-shadow: 0 0 6px var(--accent);
+            transition: width 0.1s linear;
+        }
+
+        .music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            background: var(--card-bg);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, border-color 0.2s;
+            opacity: 0;
+            visibility: hidden;
+            cursor: none;
+        }
+        
+        .music-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-glow);
+        }
+
+        footer {
+            margin-top: 15px;
+            color: #666666;
+            font-family: 'Georgia', serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .custom-cursor, .custom-cursor-glow { display: none; }
+            body, .card, .enter-screen, .music-toggle { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor" id="dotCursor"></div>
+    <div class="custom-cursor-glow" id="glowCursor"></div>
+
+    <div class="bg-parallax" id="parallaxBg"></div>
+
+    <div class="enter-screen" id="enterScreen">
+        <div class="enter-text">click to enter</div>
+    </div>
+
+    <div class="flash-effect" id="flashLayer"></div>
+
+    <div class="play-prompt" id="playPrompt">darth Rejeeli sends his greetings</div>
+
+    <canvas id="snowCanvas"></canvas>
+
+    <div class="music-toggle" id="musicToggle">
+        <i class="fas fa-volume-mute" id="musicIcon"></i>
+    </div>
+
+    <audio id="audioPlayer" src="https://cdn.discordapp.com/attachments/1407729113598525501/1511002318374441031/Black_Ops_3_Shadows_of_Evil_Ending_ThemeMP3_160K.mp3?ex=6a1ede11&is=6a1d8c91&hm=46493cec5ad0dd7e02f81c0aed828edb9749ac53ab1463154e43be0c0c856ee1&" loop></audio>
+
+    <div class="container" id="mainContainer">
+
+        <div class="profile-header">
+            <img src="https://cdn.discordapp.com/attachments/1439972460647813170/1510675047038058516/1780093486257.png?ex=6a1dad46&is=6a1c5bc6&hm=2ae8275c3dadb150588f7972c25ef47967a332a3f498a23773e73bdbada91ab5&" alt="Rejeeli Logo" class="top-logo">
+            <img src="https://cdn.discordapp.com/attachments/1407729113598525501/1511002967359099122/5c505313c890042fe1e80a7cd244db00.jpg?ex=6a1edeac&is=6a1d8d2c&hm=9871f9207862aa500ff71bf550f524fd67ed40f54891fabc108c2e695047a2c7&" alt="Rejeeli" class="avatar">
+            <div class="username" id="usernameText">Rejeeli</div>
+            <div class="bio">The Sith</div>
+            <div class="clock" id="liveClock">00:00:00</div>
+        </div>
+
+        <div class="grid" id="cardGrid">
+            
+            <div class="cassette-card" id="cassettePlayer">
+                <div class="cassette-label">
+                    <span class="cassette-title">SIDE A</span>
+                    <span class="cassette-title" style="font-size: 0.75rem;">SHADOWS OF EVIL</span>
+                    <span class="cassette-title">NR [•]</span>
+                </div>
+                <div class="cassette-window">
+                    <div class="wheel"></div>
+                    <div class="wheel"></div>
+                </div>
+                <div class="cassette-info">
+                    <div class="song-details">
+                        <span class="song-title-text">Ending Theme</span>
+                        <span class="song-artist-text">Black Ops 3 Zombies</span>
+                    </div>
+                    <div class="cassette-progress-container">
+                        <span class="cassette-time" id="currentTime">0:00</span>
+                        <div class="cassette-progress-bar">
+                            <div class="cassette-progress" id="musicProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://instagram.com/www.instagram.com/da_7it6?igsh=N2NneXVjcTd6OHd4" class="card clickable" target="_blank">
+                <i class="fab fa-instagram"></i>
+                <span class="title">Instagram</span>
+                <span class="detail">@da_7it6</span>
+            </a>
+
+            <a href="https://tiktok.com/www.tiktok.com/@a6yu2_3?_r=1&_t=ZS-96ldV8CxC7B" class="card clickable" target="_blank">
+                <i class="fab fa-tiktok"></i>
+                <span class="title">TikTok</span>
+                <span class="detail">@a6yu2_3</span>
+            </a>
+
+            <a href="https://github.com/github.com/rejeeli" class="card clickable" target="_blank">
+                <i class="fab fa-github"></i>
+                <span class="title">GitHub</span>
+                <span class="detail">rejeeli</span>
+            </a>
+
+            <a href="#" class="card clickable" id="discordCard">
+                <i class="fab fa-discord"></i>
+                <span class="title">Discord</span>
+                <span class="detail" id="discordDisplay">.rejeeli</span>
+            </a>
+        </div>
+
+        <footer>made by Rejeeli</footer>
+    </div>
+
+    <script>
+        const audio = document.getElementById('audioPlayer');
+        const progressBar = document.getElementById('musicProgress');
+        const currentTimeEl = document.getElementById('currentTime');
+        const cassettePlayer = document.getElementById('cassettePlayer');
+        const enterScreen = document.getElementById('enterScreen');
+        const flashLayer = document.getElementById('flashLayer');
+        const mainContainer = document.getElementById('mainContainer');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+        const playPrompt = document.getElementById('playPrompt');
+        const parallaxBg = document.getElementById('parallaxBg');
+        let isMuted = true;
+
+        function formatTime(secs) {
+            const minutes = Math.floor(secs / 60);
+            const seconds = Math.floor(secs % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const percentage = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = percentage + '%';
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+            }
+        });
+
+        const dotCursor = document.getElementById('dotCursor');
+        const glowCursor = document.getElementById('glowCursor');
+        let cursorX = -100, cursorY = -100;
+        let glowX = -100, glowY = -100;
+
+        window.addEventListener('mousemove', (e) => {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+            if(dotCursor) {
+                dotCursor.style.left = cursorX + 'px';
+                dotCursor.style.top = cursorY + 'px';
+            }
+
+            const moveX = (window.innerWidth / 2 - cursorX) * 0.012;
+            const moveY = (window.innerHeight / 2 - cursorY) * 0.012;
+            if(parallaxBg) {
+                parallaxBg.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.02)`;
+            }
+        });
+
+        function updateGlowPosition() {
+            let dx = cursorX - glowX;
+            let dy = cursorY - glowY;
+            glowX += dx * 0.15;
+            glowY += dy * 0.15;
+            if(glowCursor) {
+                glowCursor.style.left = glowX + 'px';
+                glowCursor.style.top = glowY + 'px';
+            }
+            requestAnimationFrame(updateGlowPosition);
+        }
+        updateGlowPosition();
+
+        const clickables = document.querySelectorAll('.clickable, .enter-screen, .music-toggle, .cassette-card');
+        clickables.forEach(el => {
+            el.addEventListener('mouseenter', () => glowCursor && glowCursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => glowCursor && glowCursor.classList.remove('hovered'));
+        });
+
+        function updateClock() {
+            const now = new Date();
+            const clockEl = document.getElementById('liveClock');
+            if(clockEl) {
+                let hours = now.getHours();
+                hours = hours % 12;
+                hours = hours ? hours : 12; 
+                
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                
+                clockEl.textContent = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
+            }
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        document.getElementById('discordCard').addEventListener('click', function(e) {
+            e.preventDefault();
+            const tag = document.getElementById('discordDisplay').textContent;
+            navigator.clipboard.writeText(tag).then(() => {
+                alert('تم نسخ المعرف بنجاح: ' + tag);
+            }).catch(() => {
+                prompt('انسخ المعرف من هنا يدويًا:', tag);
+            });
+        });
+
+        enterScreen.addEventListener('click', function() {
+            flashLayer.style.opacity = '0.2';
+            setTimeout(() => { flashLayer.style.opacity = '0'; }, 200);
+
+            enterScreen.style.opacity = '0';
+            setTimeout(() => { enterScreen.style.visibility = 'hidden'; }, 600);
+
+            mainContainer.style.opacity = '1';
+            mainContainer.style.transform = 'translateY(0)';
+            musicToggle.style.opacity = '1';
+            musicToggle.style.visibility = 'visible';
+
+            audio.play().catch(err => console.log("Autoplay blocked: ", err));
+            musicIcon.className = 'fas fa-volume-up';
+            isMuted = false;
+            cassettePlayer.classList.add('cassette-playing');
+
+            playPrompt.classList.add('show-prompt');
+
+            resizeCanvas();
+            animateParticles();
+        });
+
+        function togglePlayState() {
+            if (isMuted) {
+                audio.play();
+                musicIcon.className = 'fas fa-volume-up';
+                isMuted = false;
+                cassettePlayer.classList.add('cassette-playing');
+            } else {
+                audio.pause();
+                musicIcon.className = 'fas fa-volume-mute';
+                isMuted = true;
+                cassettePlayer.classList.remove('cassette-playing');
+            }
+        }
+
+        musicToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            togglePlayState();
+        });
+
+        cassettePlayer.addEventListener('click', function(e) {
+            togglePlayState();
+        });
+
+        const canvas = document.getElementById('snowCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        function createParticle() {
+            const isWhite = Math.random() > 0.4;
+            return {
+                x: Math.random() * width,
+                y: -10 - Math.random() * 20, 
+                size: Math.random() * 2.2 + 0.6, 
+                speedY: Math.random() * 0.5 + 0.3, 
+                speedX: Math.random() * 0.4 - 0.2, 
+                color: isWhite ? 'rgba(255, 255, 255, ' : 'rgba(170, 170, 170, ',
+                opacity: Math.random() * 0.6 + 0.2,
+                decay: 0 
+            };
+        }
+
+        function initParticles() {
+            resizeCanvas();
+            particles = [];
+            const count = Math.min(Math.floor(width * 0.04), 55); 
+            for (let i = 0; i < count; i++) {
+                let p = createParticle();
+                p.y = Math.random() * height; 
+                particles.push(p);
+            }
+        }
+        initParticles();
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let p of particles) {
+                p.y += p.speedY; 
+                p.x += p.speedX;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color + p.opacity + ')';
+                ctx.fill();
+
+                if (p.y > height + 10 || p.x < -10 || p.x > width + 10) {
+                    Object.assign(p, createParticle());
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        const cards = document.querySelectorAll('.card, .cassette-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top; 
+                
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                
+                const angleX = (yc - y) / yc * 6;
+                const angleY = (x - xc) / xc * 6;
+                
+                card.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-2px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+        });
+    </script>
+</body>
+</html>
