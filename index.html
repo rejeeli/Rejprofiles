@@ -299,7 +299,7 @@
             text-align: center;
             cursor: none;
         }
-        
+
         .card:hover {
             border-color: var(--accent-glow);
             background-color: rgba(20, 20, 20, 0.95);
@@ -311,14 +311,14 @@
             color: var(--accent);
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
         }
-        
+
         .card .title {
             font-family: 'Georgia', serif;
             font-weight: 600;
             font-size: 1rem;
             color: #fff;
         }
-        
+
         .card .detail {
             font-family: 'Courier New', Courier, monospace;
             font-size: 0.8rem;
@@ -482,7 +482,7 @@
             visibility: hidden;
             cursor: none;
         }
-        
+
         .music-toggle:hover {
             transform: scale(1.1);
             border-color: var(--accent-glow);
@@ -530,14 +530,14 @@
 
         <div class="profile-header">
             <img src="https://cdn.discordapp.com/attachments/1439972460647813170/1510675047038058516/1780093486257.png?ex=6a1dad46&is=6a1c5bc6&hm=2ae8275c3dadb150588f7972c25ef47967a332a3f498a23773e73bdbada91ab5&" alt="Rejeeli Logo" class="top-logo">
-            <img src="https://cdn.discordapp.com/attachments/1407729113598525501/1511002967359099122/5c505313c890042fe1e80a7cd244db00.jpg?ex=6a1edeac&is=6a1d8d2c&hm=9871f9207862aa500ff71bf550f524fd67ed40f54891fabc108c2e695047a2c7&" alt="Rejeeli" class="avatar">
+            <img src="https://linksharing.samsungcloud.com/p1JqYvBUaCz3" alt="Rejeeli" class="avatar">
             <div class="username" id="usernameText">Rejeeli</div>
             <div class="bio">The Sith</div>
             <div class="clock" id="liveClock">00:00:00</div>
         </div>
 
         <div class="grid" id="cardGrid">
-            
+
             <div class="cassette-card" id="cassettePlayer">
                 <div class="cassette-label">
                     <span class="cassette-title">SIDE A</span>
@@ -664,10 +664,10 @@
                 let hours = now.getHours();
                 hours = hours % 12;
                 hours = hours ? hours : 12; 
-                
+
                 const minutes = String(now.getMinutes()).padStart(2, '0');
                 const seconds = String(now.getSeconds()).padStart(2, '0');
-                
+
                 clockEl.textContent = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
             }
         }
@@ -793,16 +793,16 @@
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left; 
                 const y = e.clientY - rect.top; 
-                
+
                 const xc = rect.width / 2;
                 const yc = rect.height / 2;
-                
+
                 const angleX = (yc - y) / yc * 6;
                 const angleY = (x - xc) / xc * 6;
-                
+
                 card.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-2px)`;
             });
-            
+
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
             });
